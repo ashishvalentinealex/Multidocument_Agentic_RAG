@@ -51,7 +51,10 @@ def load_documents(file_path):
     if file_path.endswith('.txt'):
         loader = TextLoader(file_path)
     elif file_path.endswith('.json'):
-        loader = JSONLoader(file_path)
+        # Replace 'your_jq_schema' with the schema that fits your JSON structure
+        # For example, if you want to extract all "content" fields from the JSON, you could use '.content'
+        jq_schema = ".content"  # Modify according to your JSON structure
+        loader = JSONLoader(file_path, jq_schema=jq_schema, text_content=False)
     elif file_path.endswith('.pdf'):
         loader = PyPDFLoader(file_path)
     else:
@@ -102,5 +105,5 @@ def create_pinecone_vector_store(
 
 
 
-file_path = "/home/ashish/Desktop/essay.pdf"  # Specify the path to your file
+file_path = "/home/ashish/Desktop/example_2.json"  # Specify the path to your file
 upsert_document(file_path)
